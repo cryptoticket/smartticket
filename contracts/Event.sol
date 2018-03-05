@@ -36,7 +36,7 @@ contract Event is TicketsManagement {
         metadata = _ipfs;
     }
 
-    function setMetadataHash(string _ipfs) public returns(bool) {
+    function setMetadataHash(string _ipfs) external returns(bool) {
         metadata = _ipfs;
         return true;
     }
