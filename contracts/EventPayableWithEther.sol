@@ -1,12 +1,12 @@
 pragma solidity ^0.4.18;
 
-import "./tickets/TicketsManagement.sol";
+import "./tickets/PayalableTicketsManagement.sol";
 
-contract Event is TicketsManagement {
+contract EventPayableWithEther is PayalableTicketsManagement {
     string public version;
     string public metadata;
 
-    function Event(
+    function EventPayableWithEther(
         string _version,
         string _ipfs,
         address[] _addresses,
@@ -14,8 +14,9 @@ contract Event is TicketsManagement {
         uint _saleEnd,
         uint _limit,
         uint _limitPerHolder,
-        bool _isRefundable, 
-        bool _isTransferable
+        bool _isRefundable,
+        bool _isTransferable,
+        uint[] _fees
     ) AccessControl(
         _addresses
     ) EventSettings(
@@ -25,6 +26,8 @@ contract Event is TicketsManagement {
         _limitPerHolder,
         _isRefundable,
         _isTransferable
+    ) WithdrawEtherControl(
+        _fees
     )
         public
     {

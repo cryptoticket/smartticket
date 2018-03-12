@@ -12,9 +12,7 @@ contract("Event", function(accounts) {
     const initialParams = {
         _version: "1.0.0-test", 
         _ipfs: "Qmc4QEgAFeM7jiqZA8AfSZjG2bXuj7ScP1pqgNU6Ff8A9y",
-        _addressCT: addressCT,
-        _addressTS: addressTS,
-        _addressORG: addressOG,
+        _addresses: [addressCT, addressTS, addressOG],
         _saleStart: (Date.now() - 24 * 60 * 60 * 1000) / 1000 | 0, //yesterday
         _saleEnd: (Date.now() + 7 * 24 * 60 * 60 * 1000) / 1000 | 0, // next week
         _limit: 2,

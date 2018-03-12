@@ -17,14 +17,14 @@ contract AccessControl {
 
     modifier isEventActive() {require(!isPaused && !isCancelled); _;}
 
-    function AccessControl(address _addressCT, address _addressTS, address _addressOG) public {
-        addressCT = _addressCT;
-        addressTS = _addressTS;
-        addressOG = _addressOG;
+    function AccessControl(address[] _addresses) public {
+        addressCT = _addresses[0];
+        addressTS = _addresses[1];
+        addressOG = _addresses[2];
 
-        sellers[_addressCT] = true;
-        sellers[_addressTS] = true;
-        sellers[_addressOG] = true;
+        sellers[_addresses[0]] = true;
+        sellers[_addresses[1]] = true;
+        sellers[_addresses[2]] = true;
     }
 
     function setTS(address _addressTS) onlyCT() external {
