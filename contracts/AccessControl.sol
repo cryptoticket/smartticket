@@ -1,4 +1,4 @@
-pragma solidity ^0.4.18;
+pragma solidity ^0.4.23;
 
 contract AccessControl {
     address public addressCT;
@@ -17,7 +17,7 @@ contract AccessControl {
 
     modifier isEventActive() {require(!isPaused && !isCancelled); _;}
 
-    function AccessControl(address _addressCT, address _addressTS, address _addressOG) public {
+    constructor (address _addressCT, address _addressTS, address _addressOG) public {
         addressCT = _addressCT;
         addressTS = _addressTS;
         addressOG = _addressOG;

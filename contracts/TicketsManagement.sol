@@ -1,4 +1,4 @@
-pragma solidity ^0.4.18;
+pragma solidity ^0.4.23;
 
 import "./AccessControl.sol";
 import "./EventSettings.sol";
@@ -37,7 +37,7 @@ contract TicketsManagement is AccessControl, EventSettings {
         allocatedTickets[_ticket] = _to;
         owners[_to] += 1;
             
-        TicketAllocated(_to, _ticket, msg.sender);
+        emit TicketAllocated(_to, _ticket, msg.sender);
         return true;
     }
 
@@ -61,7 +61,7 @@ contract TicketsManagement is AccessControl, EventSettings {
         owners[msg.sender] -= 1;
         owners[_to] += 1;
 
-        TicketTransferred(msg.sender, _to, _ticket, msg.sender);
+        emit TicketTransferred(msg.sender, _to, _ticket, msg.sender);
         return true;
     }
 
@@ -86,7 +86,7 @@ contract TicketsManagement is AccessControl, EventSettings {
         owners[_from] -= 1;
         owners[_to] += 1;
 
-        TicketTransferred(_from, _to, _ticket, msg.sender);
+        emit TicketTransferred(_from, _to, _ticket, msg.sender);
         return true;
     }
 
@@ -105,7 +105,7 @@ contract TicketsManagement is AccessControl, EventSettings {
         redeemedTickets[_ticket] = _from;
         owners[_from] -= 1;
 
-        TicketRedeemed(_from, _ticket, msg.sender);
+        emit TicketRedeemed(_from, _ticket, msg.sender);
         return true;
     }
 
@@ -125,7 +125,7 @@ contract TicketsManagement is AccessControl, EventSettings {
         allocatedTickets[_ticket] = address(0);
         owners[_to] -= 1;
             
-        TicketRefunded(_to, _ticket, msg.sender);
+        emit TicketRefunded(_to, _ticket, msg.sender);
         return true;
     }
 }

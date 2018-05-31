@@ -1,4 +1,4 @@
-pragma solidity ^0.4.18;
+pragma solidity ^0.4.23;
 
 import "./TicketsManagement.sol";
 
@@ -6,7 +6,7 @@ contract Event is TicketsManagement {
     string public version;
     string public metadata;
     
-    function Event(
+    constructor (
         string _version,
         string _ipfs,
         address _addressCT,
