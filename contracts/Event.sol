@@ -5,6 +5,8 @@ import "./TicketsManagement.sol";
 contract Event is TicketsManagement {
     string public version;
     string public metadata;
+
+    event MetadataUpdated(string _metadata);
     
     constructor (
         string _version,
@@ -36,8 +38,10 @@ contract Event is TicketsManagement {
         metadata = _ipfs;
     }
 
-    function setMetadataHash(string _ipfs) external returns(bool) {
+    function updateMetadata(string _ipfs) external onlyAdmin() returns(bool) {
         metadata = _ipfs;
+
+        emit MetadataUpdated(_ipfs);
         return true;
     }
 }
