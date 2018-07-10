@@ -11,11 +11,13 @@ contract EventSettings {
     bool isRefundable;
     bool isTransferable;
 
-    modifier refundable() {require(isRefundable); _;}
-    modifier transferable() {require(isTransferable); _;}
+    modifier refundable() {require(isRefundable, "Event tickets is not refundable"); _;}
+    modifier transferable() {require(isTransferable, "Event tickets is not transferable"); _;}
 
     modifier isSaleActive() {
-        require(block.timestamp > saleStart && block.timestamp < saleEnd); _;
+        require(now > saleStart, "Event tickets sale not started yet");
+        require(now < saleEnd, "Event tickets sale is finished"); 
+        _;
     }
 
     constructor (

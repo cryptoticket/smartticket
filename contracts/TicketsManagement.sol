@@ -20,18 +20,12 @@ contract TicketsManagement is AccessControl, EventSettings {
         external 
         returns(bool status) 
     {
-        require(_to != address(0));
-        require(
-            allocatedTickets[_ticket] == address(0) && 
-            redeemedTickets[_ticket] == address(0)
-        );
+        require(_to != address(0), "Invalid address");
+        require(allocatedTickets[_ticket] == address(0), "Ticket allocated");
+        require(redeemedTickets[_ticket] == address(0), "Ticket redeemed");
 
-        if (limitTotal > 0) {
-            require(allocated < limitTotal);
-        }
-        if (limitPerHolder > 0) {
-            require(owners[_to] < limitPerHolder);
-        }
+        if (limitTotal > 0) {require(allocated < limitTotal, "Ticket limit exceeded");}
+        if (limitPerHolder > 0) {require(owners[_to] < limitPerHolder, "Customer ticket limit exceeded");}
 
         allocated++;
         allocatedTickets[_ticket] = _to;
@@ -47,15 +41,11 @@ contract TicketsManagement is AccessControl, EventSettings {
         external 
         returns(bool status) 
     {
-        require(_to != address(0) && _to != msg.sender);
-        require(
-            allocatedTickets[_ticket] == msg.sender && 
-            redeemedTickets[_ticket] == address(0)
-        );
+        require(_to != address(0) && _to != msg.sender, "Invalid address");
+        require(allocatedTickets[_ticket] == msg.sender, "Ticket not belong to customer");
+        require(redeemedTickets[_ticket] == address(0), "Ticket redeemed");
 
-        if (limitPerHolder > 0) {
-            require(owners[_to] < limitPerHolder);
-        }
+        if (limitPerHolder > 0) {require(owners[_to] < limitPerHolder, "Customer ticket limit exceeded");}
         
         allocatedTickets[_ticket] = _to;
         owners[msg.sender] -= 1;
@@ -72,15 +62,11 @@ contract TicketsManagement is AccessControl, EventSettings {
         external 
         returns(bool status) 
     {
-        require(_to != address(0) && _from != address(0) && _to != _from);
-        require(
-            allocatedTickets[_ticket] == _from && 
-            redeemedTickets[_ticket] == address(0)
-        );
+        require(_to != address(0) && _from != address(0) && _to != _from, "Invalid address");
+        require(allocatedTickets[_ticket] == _from, "Ticket not belong to customer");
+        require(redeemedTickets[_ticket] == address(0), "Ticket redeemed");
 
-        if (limitPerHolder > 0) {
-            require(owners[_to] < limitPerHolder);
-        }
+        if (limitPerHolder > 0) {require(owners[_to] < limitPerHolder, "Customer ticket limit exceeded");}
 
         allocatedTickets[_ticket] = _to;
         owners[_from] -= 1;
@@ -96,11 +82,9 @@ contract TicketsManagement is AccessControl, EventSettings {
         external 
         returns(bool status) 
     {
-        require(_from != address(0));
-        require(
-            allocatedTickets[_ticket] == _from && 
-            redeemedTickets[_ticket] == address(0)
-        );
+        require(_from != address(0), "Invalid address");
+        require(allocatedTickets[_ticket] == _from, "Ticket not belong to customer");
+        require(redeemedTickets[_ticket] == address(0), "Ticket redeemed");
 
         redeemedTickets[_ticket] = _from;
         owners[_from] -= 1;
@@ -115,11 +99,9 @@ contract TicketsManagement is AccessControl, EventSettings {
         external 
         returns(bool status) 
     {
-        require(_to != address(0));
-        require(
-            allocatedTickets[_ticket] == _to && 
-            redeemedTickets[_ticket] == address(0)
-        );
+        require(_to != address(0), "Invalid address");
+        require(allocatedTickets[_ticket] == _to, "Ticket not belong to customer");
+        require(redeemedTickets[_ticket] == address(0), "Ticket redeemed");
 
         allocated--;
         allocatedTickets[_ticket] = address(0);

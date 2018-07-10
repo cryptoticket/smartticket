@@ -1,4 +1,4 @@
-# [Draft] Events Smart Contract Standard v.0.0.1-alpha
+# Events Smart Contract Standard v.0.0.2
 
 ## Specifications
 
@@ -37,6 +37,9 @@ Redeem `_ticket` token `_from` address and MUST fire the `TicketRedeemed` event.
 #### function refund(address _to, bytes32 _ticket) external returns(bool status)
 Refund `_ticket` token `_to` address and MUST fire `TicketRefunded` event.
 
+#### function function updateMetadata(string _ipfs) external returns(bool)
+Set new `_ipfs` hash with updated metadata.
+
 
 ### Events
 
@@ -51,6 +54,9 @@ Triggered when `_ticket` tokens are transferred.
 
 #### TicketRefunded(address _to, bytes32 _ticket, address _manager)
 Triggered when `_ticket` token are refunded.
+
+#### MetadataUpdated(string _metadata)
+Triggered when `metadata` hash is updated.
 
 
 ### IPFS Metadata Structure
