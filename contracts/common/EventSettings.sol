@@ -1,4 +1,4 @@
-pragma solidity ^0.4.18;
+pragma solidity ^0.4.24;
 
 contract EventSettings {
     uint public saleStart;
@@ -18,7 +18,7 @@ contract EventSettings {
         require(block.timestamp > saleStart && block.timestamp < saleEnd); _;
     }
 
-    function EventSettings(
+    constructor(
         uint _saleStart, 
         uint _saleEnd,  
         uint _limitTotal, 

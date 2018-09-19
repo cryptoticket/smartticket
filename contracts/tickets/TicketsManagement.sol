@@ -1,4 +1,4 @@
-pragma solidity ^0.4.18;
+pragma solidity ^0.4.24;
 
 import "../common/AccessControl.sol";
 import "../common/EventSettings.sol";

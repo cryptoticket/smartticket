@@ -1,4 +1,4 @@
-pragma solidity ^0.4.18;
+pragma solidity ^0.4.24;
 
 import "./tickets/PayalableTicketsManagement.sol";
 
@@ -6,7 +6,7 @@ contract EventPayableWithEther is PayalableTicketsManagement {
     string public version;
     string public metadata;
 
-    function EventPayableWithEther(
+    constructor(
         string _version,
         string _ipfs,
         address[] _addresses,

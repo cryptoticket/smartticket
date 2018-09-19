@@ -1,4 +1,4 @@
-pragma solidity ^0.4.18;
+pragma solidity ^0.4.24;
 
 import "../libs/SafeMath.sol";
 
@@ -13,7 +13,7 @@ contract WithdrawEtherControl {
 
     event Withdraw(address user, uint256 amount, uint256 balance);
 
-    function WithdrawEtherControl(uint[] _fees) internal {
+    constructor(uint[] _fees) internal {
         require(_fees[0] + _fees[1] + _fees[2] == 100);
 
         feeCT = _fees[0];
@@ -27,6 +27,6 @@ contract WithdrawEtherControl {
         balanceInEther[msg.sender] = balanceInEther[msg.sender].sub(amount);
         msg.sender.transfer(amount);
 
-        Withdraw(msg.sender, amount, balanceInEther[msg.sender]);
+        emit Withdraw(msg.sender, amount, balanceInEther[msg.sender]);
     }
 }

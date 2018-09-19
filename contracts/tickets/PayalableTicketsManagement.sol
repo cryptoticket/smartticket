@@ -1,4 +1,4 @@
-pragma solidity ^0.4.18;
+pragma solidity ^0.4.24;
 
 import "../common/AccessControl.sol";
 import "../common/EventSettings.sol";
@@ -42,7 +42,7 @@ contract PayalableTicketsManagement is AccessControl, EventSettings, WithdrawEth
         bookedTicketsPrice[_ticket][_to] = _price;
         bookedTicketsExpiration[_ticket] = _expiration;
         
-        TicketBooked(_to, _ticket, _price);
+        emit TicketBooked(_to, _ticket, _price);
         return true;
     }
 
@@ -74,7 +74,7 @@ contract PayalableTicketsManagement is AccessControl, EventSettings, WithdrawEth
         allocatedTickets[_ticket] = msg.sender;
         owners[msg.sender] += 1;
             
-        TicketAllocated(msg.sender, _ticket);
+        emit TicketAllocated(msg.sender, _ticket);
         return true;
     }
 
@@ -102,7 +102,7 @@ contract PayalableTicketsManagement is AccessControl, EventSettings, WithdrawEth
         allocatedTickets[_ticket] = _to;
         owners[_to] += 1;
             
-        TicketAllocated(_to, _ticket);
+        emit TicketAllocated(_to, _ticket);
         return true;
     }
 
@@ -126,7 +126,7 @@ contract PayalableTicketsManagement is AccessControl, EventSettings, WithdrawEth
         owners[msg.sender] -= 1;
         owners[_to] += 1;
 
-        TicketTransferred(msg.sender, _to, _ticket);
+        emit TicketTransferred(msg.sender, _to, _ticket);
         return true;
     }
 
@@ -151,7 +151,7 @@ contract PayalableTicketsManagement is AccessControl, EventSettings, WithdrawEth
         owners[_from] -= 1;
         owners[_to] += 1;
 
-        TicketTransferred(_from, _to, _ticket);
+        emit TicketTransferred(_from, _to, _ticket);
         return true;
     }
 
@@ -170,7 +170,7 @@ contract PayalableTicketsManagement is AccessControl, EventSettings, WithdrawEth
         redeemedTickets[_ticket] = _from;
         owners[_from] -= 1;
 
-        TicketRedeemed(_from, _ticket);
+        emit TicketRedeemed(_from, _ticket);
         return true;
     }
 
@@ -190,7 +190,7 @@ contract PayalableTicketsManagement is AccessControl, EventSettings, WithdrawEth
         allocatedTickets[_ticket] = address(0);
         owners[_to] -= 1;
             
-        TicketRefunded(_to, _ticket);
+        emit TicketRefunded(_to, _ticket);
         return true;
     }
 }
